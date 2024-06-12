@@ -1,0 +1,162 @@
+.ll{
+    height: 100vh;
+    
+    background-color:#143642;
+}
+.ll2{
+    height: 100vh;
+    background-color: white;
+}
+.ll3{
+    height: 100vh;
+    background-color: #143642;
+    /* background-color:#EFF2F9; */
+}
+.TopprogessSection{
+    height: 15%;
+    
+     background-color: 
+     rgba(15, 139, 141, 0.05);
+}
+.lavelfont {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: rgba(109, 109, 109, 1);
+  }
+.inputfield{
+    /* font-family: 'Poppins', sans-serif; */
+    /* font-weight: 500; */
+    background-color: #f5f5f5;
+    height: 50px;
+  
+}
+.Aupload{
+    cursor: pointer;
+     
+    font-weight: 500;
+    text-decoration: underline;
+    color: rgba(15, 139, 141, 1);
+}
+
+.head{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+
+}
+.score{
+ font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: rgba(109, 109, 109, 1);
+    font-size: 20px;
+}
+.circle{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #929292;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.line{
+
+    height: 48px;
+    width: 2px;
+    margin-left: 15px;
+    background-color: #f5f5f5;
+}
+.resume{
+      display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 96vh;
+    width:100%;
+ display: flex;
+    flex-direction: column;
+
+    background-color: #143642;
+   
+}
+.resume2{
+  
+    height: 92vh;
+    width: 90%;
+   
+}
+
+.dots{
+  
+}
+
+.inputfieldDate{
+    background-color: #f5f5f5;
+    height: 50px;
+    width: 310px;
+    border:none;
+
+}
+.inputfield1{
+    background-color: #f5f5f5;
+    height: 50px;
+    width: 280px;
+    border: none;
+
+    
+}
+.switch12{
+    color: #272727;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+}
+.psummury{
+    color: #272727;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}
+
+.kk::-webkit-scrollbar {
+    display: none;
+}
+
+/* here Skill Suggestion */
+.skill{
+    height: 50px;
+    width: auto;
+    background-color:#EFF2F9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6D6D6D;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+}
+@media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+    .sidebar.open {
+      display: block;
+    }
+  }
+  @media (min-width:500px) {
+ 
+    .icon1{
+        display: none;
+    }
+  }
+  @media (max-width: 500px) {
+    .resume2{
+          
+        height: 92vh;
+        width: 150%;
+       
+    }
+    .ll3{
+        margin-top: 430px;
+        /* background-color:#EFF2F9; */
+  }
+}
