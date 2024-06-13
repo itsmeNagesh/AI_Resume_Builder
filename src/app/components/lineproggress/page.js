@@ -1,13 +1,14 @@
 "use client";
 
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Tooltip from '@mui/material/Tooltip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import PropTypes from 'prop-types';  // Import PropTypes
 import './lin.css';
 
-const theme = createTheme({
+ const theme = createTheme({
   components: {
     MuiTooltip: {
       styleOverrides: {
@@ -25,19 +26,9 @@ const theme = createTheme({
   },
 });
 
-interface ProgressBarWithDynamicTooltipProps {
-  progress: number;
-  height?: number;
-  width?: string;
-}
-
-const LineProgress: React.FC<ProgressBarWithDynamicTooltipProps> = ({
-  progress,
-  height = 10,
-  width = '100%',
-}) => {
-  const [tooltipPosition, setTooltipPosition] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const areaRef = React.useRef<HTMLDivElement>(null);
+const LineProgress = ({ progress, height, width }) => {  // Destructure props here
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const areaRef = useRef(null);
 
   const updateTooltipPosition = () => {
     if (areaRef.current) {
@@ -48,11 +39,13 @@ const LineProgress: React.FC<ProgressBarWithDynamicTooltipProps> = ({
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     updateTooltipPosition();
+    window.addEventListener('resize', updateTooltipPosition);
     window.addEventListener('scroll', updateTooltipPosition);
 
     return () => {
+      window.removeEventListener('resize', updateTooltipPosition);
       window.removeEventListener('scroll', updateTooltipPosition);
     };
   }, [progress]);
@@ -77,7 +70,7 @@ const LineProgress: React.FC<ProgressBarWithDynamicTooltipProps> = ({
             ref={areaRef}
             sx={{
               position: 'relative',
-              height,
+              height: `${height}px`,  // Ensure height is applied as a string with 'px'
               bgcolor: 'transparent',
             }}
           >
@@ -87,7 +80,7 @@ const LineProgress: React.FC<ProgressBarWithDynamicTooltipProps> = ({
               variant="determinate"
               value={progress}
               sx={{
-                height: '5px',
+                height: `${height}px`,
                 borderRadius: 0,
                 '& .MuiLinearProgress-bar': {
                   borderRadius: 0,
@@ -115,14 +108,14 @@ const LineProgress: React.FC<ProgressBarWithDynamicTooltipProps> = ({
             '&::after': {
               content: '""',
               position: 'absolute',
-              bottom: '100%', // Position the arrow at the bottom of the tooltip box
+              bottom: '100%',
               left: '50%',
               transform: 'translateX(-50%)',
               width: 0,
               height: 0,
               borderLeft: '5px solid transparent',
               borderRight: '5px solid transparent',
-              borderBottom: '5px solid #0F8B8D', // Same as the background color of the box
+              borderBottom: '5px solid #0F8B8D',
             },
           }}
         >
@@ -131,6 +124,15 @@ const LineProgress: React.FC<ProgressBarWithDynamicTooltipProps> = ({
       </Box>
     </ThemeProvider>
   );
+};
+
+LineProgress.propTypes = {
+  progress: PropTypes.number.isRequired,  // Ensure progress is a number and required
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,  // Ensure height is either string or number and required
+  width: PropTypes.string.isRequired,  // Ensure width is a string and required
 };
 
 export default LineProgress;

@@ -7,24 +7,20 @@ export default function Resume({ formdata,SummuaryData,EduactionalData,addSkill 
     const { Fname, Lastname, Email, Phone, City, Country, imgUrl, Jobtitle ,content1} = formdata;
     const{PositionTitle,OrganisationName,City2,State,StarDate,EndDate,content2 }=SummuaryData;
     const{Sname,Slocation,Sdate,Edate,Degree,fieldStudy ,content4} =EduactionalData
-    // const formattedDate = `${StarDate.getDate()}/${StarDate.getMonth() + 1}/${StarDate.getFullYear()}`;  
-    // const formattedDate2 = `${EndDate.getDate()}/${EndDate.getMonth() + 1}/${EndDate.getFullYear()}`;
-console.log('skillre', addSkill);
-    console.log('formdata11', imgUrl);
+
     
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
 
-
-
     useEffect(() => {
-        
     }, [formdata]);
 
     return (
       <>
+
+      
         <div>
           {/* <button onClick={handlePrint} className='btn btn-primary'>Print this out!</button> */}
           <div className="row  overflow-hidden w-100 headsec" >

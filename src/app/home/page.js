@@ -1,13 +1,14 @@
 "use client"
-import { rootCertificates } from "tls";
+
 import './home.css'
 import React, { useState, useEffect, useRef,useCallback } from 'react';
-import Lineproggress from '../components/lineproggress/page';
+import LineProgress from '../components/lineproggress/page';
+
 import Resume from '../components/resumetemplate/page'
 import { Container, Button, Box } from '@mui/material';
 import ArrowTooltips from '../components/lineproggress/tooltips/page'
 import Tooltip from '@mui/material/Tooltip';
-import { Console } from "console";
+
 import Prosummury from '../components/profsummury/page'
 import DatePicker from 'react-datepicker';
 import { GrAdd } from "react-icons/gr";
@@ -20,16 +21,7 @@ import Switch from '@mui/material/Switch';
 import Hamburger from 'hamburger-react'
 import { debounce } from 'lodash';
 import JoditEditor from 'jodit-react';
-interface EditorConfig {
-  readonly?: boolean;
-  placeholder?: string;
-}
-interface ResponseData {
-  // Define the shape of the response data
-  // For example, if the response is an object with specific fields, define them here
-  // id: number;
-  // message: string;
-}
+
 export default function Home1() {
   //#  cASE:1
 
@@ -47,8 +39,8 @@ export default function Home1() {
  
 
 
-  const [currentStep, setCurrentStep] = useState<number>(1); // Initialize step state
-  const [progress, setProgress] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState(1); // Initialize step state
+  const [progress, setProgress] = useState(0);
   const [step, setStep] = useState(1);
   const [flag, setflag] = useState(false);
   const [FormData, setFormData] = useState(intialValue);
@@ -57,10 +49,10 @@ export default function Home1() {
 
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-  const [editorHtml1, setEditorHtml1] = useState<string >('Highly skilled web developer with expertise in HTML, CSS, JavaScript, and React. Proficient in building responsive, scalable, and user-friendly web applications. Strong understanding of front-end development principles and best practices.');
+  const [editorHtml1, setEditorHtml1] = useState('Highly skilled web developer with expertise in HTML, CSS, JavaScript, and React. Proficient in building responsive, scalable, and user-friendly web applications. Strong understanding of front-end development principles and best practices.');
  
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrlnew = URL.createObjectURL(file);
@@ -74,11 +66,11 @@ export default function Home1() {
     fileInputRef.current?.click();
   };
  
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
   
     setFormData({ ...FormData, [e.target.name]: e.target.value })
   }
-  const handleChange1= (html: string) => {
+  const handleChange1= (html) => {
     setEditorHtml1(html);
     setFormData({...FormData,content1:html})
   
@@ -87,10 +79,10 @@ export default function Home1() {
 
     setProgress(progress >= 100 ? 0 : progress + 25)
   }
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState({});
 
-  const validate = (): boolean => {
-    const newErrors: { [key: string]: string } = {};
+  const validate = ()=> {
+    const newErrors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
     if (!FormData.Jobtitle) newErrors.Jobtitle = 'Job title is required';
@@ -105,8 +97,8 @@ export default function Home1() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  const validateSummuaryData = ():boolean => {
-    const newErrors: { [key: string]: string } = {};
+  const validateSummuaryData = () => {
+    const newErrors= {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!FormData2.PositionTitle) newErrors.PositionTitle = "Position title is required";
     if (!FormData2.OrganisationName) newErrors.OrganisationName = "Organisation name is required";
@@ -148,7 +140,7 @@ setCurrentStep((prevStep) => Math.min(prevStep + 1, 5));
     setStep((prev) => Math.max(prev - 1, 1));
   };
 //API CALL FOR CASE:1
-const [responseData, setResponseData] = useState<ResponseData | null>(null); // Initialize state to hold the response data
+const [responseData, setResponseData] = useState(null); // Initialize state to hold the response data
 const[jobProfile, setJobProfile] = useState(FormData.Jobtitle);
 
 // const handleSubmit = async (): Promise<void> => {
@@ -160,7 +152,7 @@ const[jobProfile, setJobProfile] = useState(FormData.Jobtitle);
 //     }
 // };
 
-const sendJobProfile = useCallback(async (jobProfile: string) => {
+const sendJobProfile = useCallback(async (jobProfile) => {
   try {
     const response = await axios.post('http://192.168.29.123:5000/prompt', { jobProfile });
     console.log('Response:', response.data);
@@ -174,7 +166,7 @@ const sendJobProfile = useCallback(async (jobProfile: string) => {
 
 // Debounced function to send job profile
 const debouncedSendJobProfile = useCallback(
-  debounce((jobProfile: string) => {
+  debounce((jobProfile) => {
     sendJobProfile(jobProfile);
   }, 500), // Adjust the debounce delay as needed (500ms in this example)
   [sendJobProfile]
@@ -204,7 +196,7 @@ const[FormData2,setFormData2]=useState(Summary);
 
 
 
-const formatDate = (date: Date): string => {
+const formatDate = (date)=> {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -213,39 +205,39 @@ const formatDate = (date: Date): string => {
 };
 
 
-const handleChangeStart = (date: any) => {
+const handleChangeStart = (date) => {
   setFormDate({ ...formDate, StarDate: date });
   setFormData2({ ...FormData2, StarDate: formatDate(date) }); // Update FormData2 with start date
 };
 
-const handleChangeEnd = (date: any) => {
+const handleChangeEnd = (date) => {
   
   setFormDate({ ...formDate, EndDate: date });
   setFormData2({ ...FormData2, EndDate: formatDate(date) }); // Update FormData2 with end date
 };
  
-    const handleChange2=(e:any)=>{
+    const handleChange2=(e)=>{
       // const {name}=e.target
       setFormData2({...FormData2,[e.target.name]:e.target.value})
     }
   
   const [showDates, setShowDates] = useState(true);
 
-  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSwitchChange = (event) => {
     setShowDates(event.target.checked);
   };
 
 const[response2,setResponseData2]=useState('');
   const [editorHtml2, setEditorHtml2] = useState('');
 
-  const handleChange21= (html: string) => {
+  const handleChange21= (html) => {
     setFormData2({...FormData2,content2:html})
     setEditorHtml2(html);
   };
 
 
 
-  const sendJobProfile2 = useCallback(async (jobProfile: string) => {
+  const sendJobProfile2 = useCallback(async (jobProfile) => {
     try {
       const response = await axios.post('http://192.168.29.123:5000/experience', { jobProfile });
       console.log('Response:', response.data);
@@ -259,7 +251,7 @@ const[response2,setResponseData2]=useState('');
   }, []);
 
 const debouncedSendJobProfile2 = useCallback(
-  debounce((jobProfile: string) => {
+  debounce((jobProfile) => {
     sendJobProfile2(jobProfile);
   }, 500),
   [sendJobProfile2]
@@ -275,7 +267,7 @@ useEffect(() => {
 const [SKillData,setSkillData]=useState([])
 console.log('123',SKillData);
 const [addskill,setAddSkill]=useState('')
-const handleAddSkill = (skill: string) => {
+const handleAddSkill = (skill) => {
   setAddSkill((prev) => prev ? `${prev}${skill}, ` : `${skill}, `);
 };
 const handleNext3 = () => {
@@ -289,7 +281,7 @@ const handleNext3 = () => {
       setStep((prev) => Math.max(prev - 1, 1));
     };
 
-    const sendJobProfile3 = useCallback(async (jobProfile: string) => {
+    const sendJobProfile3 = useCallback(async (jobProfile) => {
       try {
         const response = await axios.post('http://192.168.29.123:5000/skills', { jobProfile });
         let skillsString = response.data.skills;
@@ -311,7 +303,7 @@ const handleNext3 = () => {
     
     // Debounced function to send job profile
     const debouncedSendJobProfile3 = useCallback(
-      debounce((jobProfile: string) => {
+      debounce((jobProfile) => {
         sendJobProfile3(jobProfile);
       }, 500), // Adjust the debounce delay as needed (500ms in this example)
       [sendJobProfile3]
@@ -339,19 +331,19 @@ const handleNext3 = () => {
     content4:"JFHUJDND UFHDHFF UHFUFNVF "
   }
   const [Formdata4,setformdata4]=useState(EducationalDetails);
-  const handleEducationaDetails=(e:any)=>{
+  const handleEducationaDetails=(e)=>{
      setformdata4({...Formdata4,[e.target.name]:e.target.value})
   }
   const [formDate4, setFormDate4] = useState({
     StarDate: new Date(),
     EndDate: new Date(),
 });
-const handleChangeStart4 = (date: any) => {
+const handleChangeStart4 = (date) => {
   setFormDate4({ ...formDate, StarDate: date });
   setformdata4({ ...Formdata4, Sdate: formatDate(date) }); // Update FormData2 with start date
 };
 
-const handleChangeEnd4 = (date: any) => {
+const handleChangeEnd4 = (date) => {
   
   setFormDate4({ ...formDate, EndDate: date });
   setformdata4({ ...Formdata4, Edate: formatDate(date) }); // Update FormData2 with end date
@@ -359,13 +351,13 @@ const handleChangeEnd4 = (date: any) => {
 
 //Swith handle 
 const [showDates4, setShowDates4] = useState(true);
-  const handleSwitchChange4 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSwitchChange4 = (event) => {
     setShowDates4(event.target.checked);
   };
 // handle textediter 
 
 const [editorHtml4, setEditorHtml4] = useState('');
-const handleChange4= (html: string) => {
+const handleChange4= (html) => {
   setformdata4({...Formdata4,content4:html})
   setEditorHtml4(html);
 };
@@ -388,7 +380,7 @@ const handleNext4= () => {
 const handleNextStep = () => {
   setCurrentStep((prevStep) => Math.min(prevStep + 1, 5)); // Increase step, max 5
 };
-  const RenderForm=(step:number)=>{
+  const RenderForm=(step)=>{
     switch(step){
       case 1:
         return (<>
@@ -843,7 +835,8 @@ const handleNextStep = () => {
     }
   }
   const [isOpen, setOpen] = useState(false)
-
+  const height = 10;  // Example height in px
+  const width = '100%';  // Example width
   return (
 <>
         <div className="container-fluid">
@@ -901,7 +894,7 @@ const handleNextStep = () => {
 
                   <Box sx={{ width: '100%', }}>
 
-                    <Lineproggress progress={progress} height={10} width="100%" />
+                    <LineProgress progress={progress} height={height} width={width}/>
 
                   </Box>
                 </Container>
@@ -936,7 +929,8 @@ const handleNextStep = () => {
          
                 <div className="row">
 
-                  <div className="resume2 row  my-0 mx-1 "><Resume formdata={FormData} SummuaryData={FormData2} EduactionalData={Formdata4} addSkill={addskill} /></div>
+                  <div className="resume2 row  my-0 mx-1 ">
+                    <Resume formdata={FormData} SummuaryData={FormData2} EduactionalData={Formdata4} addSkill={addskill} /></div>
                 </div>
 
               </div>

@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/resumetemplate/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/resumetemplate/page.js", "src/app/components/lineproggress/page.js", "src/app/components/lineproggress/tooltips/page.js", "src/app/home/page.jsx"],
   "exclude": ["node_modules"]
 }
